@@ -1,4 +1,4 @@
-package com.fms.expection;
+package com.fms.exception;
 
 public class UserNotFoundException extends RuntimeException{
     

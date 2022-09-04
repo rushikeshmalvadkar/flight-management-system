@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fms.entity.FlightEntity;
-import com.fms.expection.UserNotFoundException;
+import com.fms.exception.UserNotFoundException;
 
 @Repository
 public class FlightDao {

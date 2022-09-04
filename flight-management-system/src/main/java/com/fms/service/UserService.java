@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fms.entity.UserEntity;
-import com.fms.expection.UserNotFoundException;
+import com.fms.exception.UserNotFoundException;
 import com.fms.repository.UserDao;
 
 @Service

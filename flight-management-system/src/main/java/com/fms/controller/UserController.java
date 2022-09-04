@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fms.dto.FmsResponseBody;
 import com.fms.entity.UserEntity;
-import com.fms.expection.UserNotFoundException;
+import com.fms.exception.UserNotFoundException;
 import com.fms.service.UserService;
 
 @RestController

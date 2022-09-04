@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.fms.dto.FlightDTO;
 import com.fms.entity.FlightEntity;
-import com.fms.expection.UserNotFoundException;
+import com.fms.exception.UserNotFoundException;
 import com.fms.mapper.FlightMapper;
 import com.fms.repository.FlightDao;
 
