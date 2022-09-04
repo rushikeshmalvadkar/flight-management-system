@@ -1,5 +1,6 @@
 package com.fms.entity;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -8,80 +9,81 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
 import com.fms.enums.Role;
 import com.fms.enums.Status;
+import com.ruishanio.Ksuid;
 
 /**
+ * Responsible to represent user
  * 
- * @author Rushikesh MALVADKAR
+ * @author RUSHIKESH MALVADKAR
  *
  */
-
 @Entity
+@Table(name = "user_details")
 public class UserEntity {
 
 	/**
-	 * this is id of user or admin
+	 * The user id
 	 */
 	@Id
 	@Column(name = "ID")
-	private String Id;
+	private String id;
 
 	/**
-	 * name of user or admin
+	 * The name of user
 	 */
-	@Column(name = "NAME")
+	@Column(name = "NAME" , nullable = false)
 	private String name;
 
 	/**
-	 * This is the username of user or admin
+	 * The user name
 	 */
 
-	@Column(name = "USER_NAME")
+	@Column(name = "USER_NAME" , nullable = false)
 	private String userName;
 
 	/**
-	 * this is the password of user or admin
+	 * The password
 	 */
-	@Column(name = "PASSWORD")
+	@Column(name = "PASSWORD" , nullable = false)
 	private String password;
     
 	/**
-	 * when this user created
+	 * The created on time
 	 */
-	@Column(name = "CREATEDON")
+	@Column(name = "CREATED_ON" , nullable = false)
 	private LocalDateTime createdOn;
 	
 	/**
-	 * date when user updated
+	 * The updated on time
 	 */
+	@Column(name = "UPDATED_ON" , nullable = false)
 	private LocalDateTime updatedOn;
 	
 	/**
-	 * role of user customers or admin
+	 * The role of user
 	 */
-	@Enumerated(EnumType.STRING)
-	@Column(name = "ROLE")
+	@Enumerated(EnumType.STRING )
+	@Column(name = "ROLE" , nullable = false)
 	private Role role;
 	
 	/**
-	 * status of user active or nonactive
+	 * The status of user
 	 */
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ACTIVE_STATUS")
+	@Column(name = "ACTIVE_STATUS" , nullable = false)
 	private Status status;
-
-	public UserEntity() {
-
-	}
 	
     /**
      * get the id of user
      * @return id
      */
 	public String getId() {
-		return Id;
+		return id;
 	}
 	
      /**
@@ -89,7 +91,7 @@ public class UserEntity {
       * @param id
       */
 	public void setId(String id) {
-		this.Id = id;
+		this.id = id;
 	}
 	
     /**
@@ -202,6 +204,14 @@ public class UserEntity {
     */
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+	
+	@PrePersist
+	public void beforeInsert() throws IOException  {
+		Ksuid ksuid = new Ksuid();
+		this.id = ksuid.generate();
+		this.createdOn = LocalDateTime.now();
+		this.updatedOn = LocalDateTime.now();
 	}
 
 }

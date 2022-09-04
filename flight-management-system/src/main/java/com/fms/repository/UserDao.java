@@ -21,12 +21,7 @@ public class UserDao {
 	@Autowired
 	private EntityManager emt;
 
-	public UserEntity addUser(UserEntity userEntity) throws IOException {
-		Ksuid ksuid = new Ksuid();
-		String id = ksuid.generate();
-		userEntity.setId(id);
-		userEntity.setUpdatedOn(LocalDateTime.now());
-		userEntity.setCreatedOn(LocalDateTime.now());
+	public UserEntity addUser(UserEntity userEntity)  {
 		this.emt.persist(userEntity);
 		return userEntity;
 	}

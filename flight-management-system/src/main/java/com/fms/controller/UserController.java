@@ -1,6 +1,5 @@
 package com.fms.controller;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -29,61 +28,57 @@ public class UserController {
 	@Autowired
 	private UserService userServise;
 
-	@PostMapping("/users") 
+	@PostMapping("/users")
 	public FmsResponseBody<UserEntity> addUser(@RequestBody UserEntity userEntity) throws IOException {
 		UserEntity savedUser = userServise.addUser(userEntity);
 		return new FmsResponseBody<>(savedUser, HttpStatus.OK.value());
 	}
-	
+
 	@GetMapping("/users/{userName}")
 	public FmsResponseBody<UserEntity> getUserByUserName(@PathVariable String userName) {
-	        UserEntity user = null;
+		UserEntity user = null;
 		try {
-	       user = this.userServise.getUserByUserName(userName);
-		}
-		catch(UserNotFoundException e) {
+			user = this.userServise.getUserByUserName(userName);
+		} catch (UserNotFoundException e) {
 			return new FmsResponseBody<>(e.getMessage(), HttpStatus.NOT_FOUND.value());
 		}
-	      return new FmsResponseBody<>(user, HttpStatus.OK.value());
+		return new FmsResponseBody<>(user, HttpStatus.OK.value());
 	}
-	
+
 	@GetMapping("/users")
-	public List<UserEntity> getAllUser(){
-	  return this.userServise.getAllUser();
-	  
+	public List<UserEntity> getAllUser() {
+		return this.userServise.getAllUser();
+
 	}
-	
+
 	@GetMapping("/user/{id}")
-	public FmsResponseBody<UserEntity> getUserById(@PathVariable String id ) {
-		
-        UserEntity user;
+	public FmsResponseBody<UserEntity> getUserById(@PathVariable String id) {
+
+		UserEntity user;
 		try {
 			user = this.userServise.getUserById(id);
 		} catch (UserNotFoundException e) {
 			return new FmsResponseBody<>(e.getMessage(), HttpStatus.NOT_FOUND.value());
 		}
-        
-        return new FmsResponseBody<>(user, HttpStatus.OK.value());
-        
+
+		return new FmsResponseBody<>(user, HttpStatus.OK.value());
+
 	}
-	
+
 	@PutMapping("/users")
 	public FmsResponseBody<UserEntity> updateUser(@RequestBody UserEntity userEntity) {
-	      UserEntity updateUser = this.userServise.updateUser(userEntity);
-	    return new FmsResponseBody<>(updateUser, HttpStatus.OK.value());
+		UserEntity updateUser = this.userServise.updateUser(userEntity);
+		return new FmsResponseBody<>(updateUser, HttpStatus.OK.value());
 	}
-	
+
 	@DeleteMapping("/users/{id}")
 	public FmsResponseBody<Boolean> deleteUserById(@PathVariable String id) {
 		try {
-	    this.userServise.deleteUserById(id);
-	    }catch(UserNotFoundException e) {
-	    	return new FmsResponseBody<>(e.getMessage(), HttpStatus.OK.value());
-	    }
-	    return new FmsResponseBody<>(true, HttpStatus.OK.value());
+			this.userServise.deleteUserById(id);
+		} catch (UserNotFoundException e) {
+			return new FmsResponseBody<>(e.getMessage(), HttpStatus.OK.value());
+		}
+		return new FmsResponseBody<>(true, HttpStatus.OK.value());
 	}
-	
-	 
-}	
 
-
+}
